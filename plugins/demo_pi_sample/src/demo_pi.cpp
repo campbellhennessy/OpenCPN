@@ -111,6 +111,7 @@ int demo_pi::Init(void)
       return (
            INSTALLS_CONTEXTMENU_ITEMS     |
            WANTS_NMEA_SENTENCES           |
+           WANTS_CURSOR_LATLON            |
            USES_AUI_MANAGER
             );
 }
@@ -263,7 +264,11 @@ bool demo_pi::RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp)
 }
 void demo_pi::SetCursorLatLon(double lat, double lon)
 {
-
+  
+  if(m_pdemo_window)
+  {
+        m_pdemo_window->SetCursorLatLon(lat, lon);
+  }
 }
 bool demo_pi::RenderGLOverlay(wxGLContext *pcontext, PlugIn_ViewPort *vp)
 {
@@ -324,6 +329,8 @@ demoWindow::demoWindow(wxWindow *pparent, wxWindowID id)
       mSog = 2.0;
       mCog = 3.0;
       mVar = 4.0;
+      cLat = 0.0;
+      cLong = 0.0;
 }
 
 demoWindow::~demoWindow()
@@ -335,6 +342,11 @@ void demoWindow::OnSize(wxSizeEvent& event)
       printf("demoWindow OnSize()\n");
 }
 
+void demoWindow::SetCursorLatLon(double lat, double lon)
+{
+  //cLat = lat;
+  Refresh(false);
+}
 
 void demoWindow::SetSentence(wxString &sentence)
 {
@@ -379,6 +391,19 @@ void demoWindow::SetSentence(wxString &sentence)
                               }
                         }
                   }
+                  else if(m_NMEA0183.LastSentenceIDReceived == _T("RMB")){
+                    if(m_NMEA0183.Parse()){
+                      if(m_NMEA0183.Rmb.IsDataValid == NTrue){
+                        cLat = m_NMEA0183.Rmb.RangeToDestinationNauticalMiles;
+                        cLong = m_NMEA0183.Rmb.BearingToDestinationDegreesTrue;
+                        bGoodData = true;
+                      }
+                    } else {
+                      wxLogMessage(m_NMEA0183.ErrorMessage);
+                      wxLogMessage(sentence);
+                    }
+                    
+                  }
         }
 
       //    Got the data, now do something with it
@@ -412,5 +437,13 @@ void demoWindow::OnPaint(wxPaintEvent& event)
 
             data.Printf(_T("Cog: %g"), mCog);
             dc.DrawText(data, 10, 100);
+            
+            data.Printf(_T("Cursor Lat: %g"), cLat);
+            dc.DrawText(data, 10, 130);
+            
+            data.Printf(_T("Cursor Long: %g"), cLong);
+            dc.DrawText(data, 10, 160);
+
+
       }
 }

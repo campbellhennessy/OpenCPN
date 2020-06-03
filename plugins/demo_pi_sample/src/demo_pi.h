@@ -105,11 +105,13 @@ public:
       void OnPaint(wxPaintEvent& event);
       void SetSentence(wxString &sentence);
       void OnSize(wxSizeEvent& event);
+      
+      void SetCursorLatLon(double lat, double lon);
 
       NMEA0183        m_NMEA0183;                 // Used to parse NMEA Sentences
 
       wxString          m_NMEASentence;
-      double            mLat, mLon, mSog, mCog, mVar;
+      double            mLat, mLon, mSog, mCog, mVar, cLat, cLong;
 
 
 DECLARE_EVENT_TABLE()
@@ -117,6 +119,3 @@ DECLARE_EVENT_TABLE()
 
 
 #endif
-
-
-
