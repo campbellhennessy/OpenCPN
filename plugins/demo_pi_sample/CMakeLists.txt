@@ -31,9 +31,12 @@ SET(CPACK_PACKAGE_CONTARCT "Pavel Kalian")
 
 MESSAGE (STATUS "*** Building ${PACKAGE_NAME} ***")
 
-SET(VERSION_MAJOR "1")
-SET(VERSION_MINOR "0")
-SET(VERSION_PATCH "3")
+SET(VERSION_MAJOR "1")
+
+SET(VERSION_MINOR "0")
+
+SET(VERSION_PATCH "3")
+
 SET(VERSION_DATE "07/01/2018")
 
 IF( NOT CMAKE_BUILD_TYPE )
@@ -98,6 +101,12 @@ SET(SRC_DEMO
  	)
 
 SET(SRC_NMEA0183
+		src/nmea0183/GPwpl.hpp
+		src/nmea0183/GPwpl.cpp
+		src/nmea0183/apb.hpp
+		src/nmea0183/apb.cpp
+		src/nmea0183/xte.cpp
+		src/nmea0183/xte.hpp
 		src/nmea0183/LatLong.hpp
 		src/nmea0183/latlong.cpp
 		src/nmea0183/long.cpp
@@ -138,8 +147,10 @@ INCLUDE_DIRECTORIES(nmea0183)
 
 ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_DEMO} ${SRC_NMEA0183} )
 
-target_link_libraries(${PACKAGE_NAME} PRIVATE ocpn::opencpn )
+target_link_libraries(${PACKAGE_NAME} ocpn::opencpn )
 
-INCLUDE("cmake/PluginInstall.cmake")
-INCLUDE("cmake/PluginLocalization.cmake")
+INCLUDE("cmake/PluginInstall.cmake")
+
+INCLUDE("cmake/PluginLocalization.cmake")
+
 INCLUDE("cmake/PluginPackage.cmake")
