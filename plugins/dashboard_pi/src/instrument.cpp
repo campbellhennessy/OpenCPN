@@ -85,6 +85,24 @@ void DashboardInstrument::MouseEvent( wxMouseEvent &event )
     }
 }
 
+void DashboardInstrument::AddCaptureCode(int st)
+{
+  m_cap_codes.push_back(st);
+}
+
+bool DashboardInstrument::HasCaptureCode(int st){
+  bool match = false;
+  if(m_cap_flag == 0){ // this check is only here for development while this is existing alongside the old system as well
+    for (std::vector<int>::iterator it = m_cap_codes.begin(); it != m_cap_codes.end(); ++it){
+        if(*it == st ){
+          match = true;
+          break;
+        }
+    }
+  }
+  return match;
+}
+
 int DashboardInstrument::GetCapacity()
 {
       return m_cap_flag;
@@ -190,6 +208,14 @@ DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWind
       m_DataHeight = 0;
 }
 
+DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, wxString format)
+      :DashboardInstrument(pparent, id, title, 0)
+{
+      m_format = format;
+      m_data = _T("---");
+      m_DataHeight = 0;
+}
+
 wxSize DashboardInstrument_Single::GetSize( int orient, wxSize hint )
 {
       wxClientDC dc(this);
@@ -237,7 +263,12 @@ void DashboardInstrument_Single::Draw(wxGCDC* dc)
 
 void DashboardInstrument_Single::SetData(int st, double data, wxString unit)
 {
-      if (m_cap_flag & st){
+      bool match = false;
+      match = this->HasCaptureCode(st);
+      if(m_cap_flag & st){
+        match = true;
+      }
+      if (match){
             if( !std::isnan(data) ){
                 if (unit == _T("C"))
                   m_data = wxString::Format(m_format, data)+DEGREE_SIGN+_T("C");

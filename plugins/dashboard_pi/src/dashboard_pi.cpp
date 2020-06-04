@@ -3519,7 +3519,8 @@ void DashboardWindow::SetInstrumentList( wxArrayInt list )
                 break;
             case ID_DBP_I_SOG:
                 instrument = new DashboardInstrument_Single( this, wxID_ANY,
-                        getInstrumentCaption( id ), OCPN_DBP_STC_SOG, _T("%5.1f") );
+                        getInstrumentCaption( id ), _T("%5.1f") );
+                instrument->AddCaptureCode(OCPN_DBP_STC_SOG);
                 break;
             case ID_DBP_D_SOG:
                 instrument = new DashboardInstrument_Speedometer( this, wxID_ANY,
@@ -3789,7 +3790,7 @@ void DashboardWindow::SetInstrumentList( wxArrayInt list )
 void DashboardWindow::SendSentenceToAllInstruments( int st, double value, wxString unit )
 {
     for( size_t i = 0; i < m_ArrayOfInstrument.GetCount(); i++ ) {
-        if( m_ArrayOfInstrument.Item( i )->m_cap_flag & st ) m_ArrayOfInstrument.Item( i )->m_pInstrument->SetData(
+        if( m_ArrayOfInstrument.Item( i )->m_cap_flag & st || m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(st)) m_ArrayOfInstrument.Item( i )->m_pInstrument->SetData(
                 st, value, unit );
     }
 }
@@ -3932,4 +3933,3 @@ void OCPNFontButton::UpdateFont()
                                   m_selectedFont.GetPointSize()));
     }
 }
-

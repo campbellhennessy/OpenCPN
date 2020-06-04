@@ -42,6 +42,7 @@
 #include "../../../include/ocpn_plugin.h"
 #include <wx/dcbuffer.h>
 #include <wx/dcgraph.h>         // supplemental, for Mac
+#include <vector>
 
 const wxString DEGREE_SIGN = wxString::Format(_T("%c"), 0x00B0); // This is the degree sign in UTF8. It should be correctly handled on both Win & Unix
 #define DefaultWidth 150
@@ -107,6 +108,8 @@ public:
       virtual void SetData(int st, double data, wxString unit) = 0;
       void SetDrawSoloInPane(bool value);
       void MouseEvent( wxMouseEvent &event );
+      void AddCaptureCode(int st);
+      bool HasCaptureCode(int st);
       
       int               instrumentTypeId;
 
@@ -114,6 +117,7 @@ protected:
       int               m_cap_flag;
       int               m_TitleHeight;
       wxString          m_title;
+      std::vector<int>  m_cap_codes;
 
       virtual void Draw(wxGCDC* dc) = 0;
 private:
@@ -124,6 +128,7 @@ class DashboardInstrument_Single : public DashboardInstrument
 {
 public:
       DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, int cap, wxString format);
+      DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, wxString format);
       ~DashboardInstrument_Single(){}
 
       wxSize GetSize( int orient, wxSize hint );
