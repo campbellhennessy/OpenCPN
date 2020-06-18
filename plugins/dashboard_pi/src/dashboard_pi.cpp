@@ -3522,9 +3522,8 @@ void DashboardWindow::SetInstrumentList( wxArrayInt list )
                         getInstrumentCaption( id ) );
                 break;
             case ID_DBP_I_SOG:
-                instrument = new DashboardInstrument_Single( this, wxID_ANY,
-                        getInstrumentCaption( id ), _T("%5.1f") );
-                instrument->AddCaptureCode(OCPN_DBP_STC_SOG);
+                instrument = new DashboardInstrument_Single( this, wxID_ANY, 
+                        getInstrumentCaption( id ), OCPN_DBP_STC_SOG, _T("%5.1f") );
                 break;
             case ID_DBP_D_SOG:
                 instrument = new DashboardInstrument_Speedometer( this, wxID_ANY,

@@ -128,7 +128,6 @@ class DashboardInstrument_Single : public DashboardInstrument
 {
 public:
       DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, int cap, wxString format);
-      DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, wxString format);
       ~DashboardInstrument_Single(){}
 
       wxSize GetSize( int orient, wxSize hint );

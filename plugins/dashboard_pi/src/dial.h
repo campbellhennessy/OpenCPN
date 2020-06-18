@@ -97,8 +97,7 @@ class DashboardInstrument_Dial: public DashboardInstrument
             void SetOptionLabel(double step, DialLabelOption option, wxArrayString labels=wxArrayString()) { m_LabelStep = step; m_LabelOption = option; m_LabelArray = labels; }
             void SetOptionMainValue(wxString format, DialPositionOption option)
                         { m_MainValueFormat = format; m_MainValueOption = option; }
-            void SetOptionExtraValue(int cap, wxString format, DialPositionOption option)
-                        { m_ExtraValueCap = cap; m_cap_flag |= cap; m_ExtraValueFormat = format; m_ExtraValueOption = option; }
+            void SetOptionExtraValue(int cap, wxString format, DialPositionOption option);
 
       private:
 
@@ -136,4 +135,3 @@ void DrawCompassRose( wxGCDC* dc, int cx, int cy, int radius, int startangle, bo
 void DrawBoat( wxGCDC* dc, int cx, int cy, int radius );
 
 #endif // __Dial_H__
-

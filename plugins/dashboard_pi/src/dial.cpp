@@ -60,13 +60,14 @@ double deg2rad(double angle)
 }
 
 DashboardInstrument_Dial::DashboardInstrument_Dial( wxWindow *parent, wxWindowID id, wxString title, int cap_flag,
-                  int s_angle, int r_angle, int s_value, int e_value) : DashboardInstrument(parent, id, title, cap_flag)
+                  int s_angle, int r_angle, int s_value, int e_value) : DashboardInstrument(parent, id, title, 0)
 {
       m_AngleStart = s_angle;
       m_AngleRange = r_angle;
       m_MainValueMin = s_value;
       m_MainValueMax = e_value;
       m_MainValueCap = cap_flag;
+      this->AddCaptureCode(cap_flag);
 
       m_MainValue = s_value;
       m_ExtraValue = 0;
@@ -81,6 +82,7 @@ DashboardInstrument_Dial::DashboardInstrument_Dial( wxWindow *parent, wxWindowID
       m_LabelStep = 1;
       m_MarkerOffset = 1;
       m_LabelOption = DIAL_LABEL_HORIZONTAL;
+      
 }
 
 wxSize DashboardInstrument_Dial::GetSize( int orient, wxSize hint )
@@ -110,6 +112,15 @@ void DashboardInstrument_Dial::SetData(int st, double data, wxString unit)
             m_ExtraValueUnit = unit;
       }
       Refresh();
+}
+
+void DashboardInstrument_Dial::SetOptionExtraValue(int cap, wxString format, DialPositionOption option){
+  m_ExtraValueCap = cap;
+  m_ExtraValueFormat = format;
+  m_ExtraValueOption = option;
+  this->AddCaptureCode(cap);
+  printf("Added %d\n", cap);
+  printf("Check recieves %d\n", this->HasCaptureCode(cap));
 }
 
 void DashboardInstrument_Dial::Draw(wxGCDC* bdc)
@@ -631,4 +642,3 @@ void DrawBoat( wxGCDC* dc, int cx, int cy, int radius )
 
     dc->DrawPolygon(7, points, 0, 0);
 }
-

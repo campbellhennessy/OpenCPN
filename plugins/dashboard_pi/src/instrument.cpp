@@ -201,20 +201,14 @@ void DashboardInstrument::OnPaint( wxPaintEvent& WXUNUSED(event) )
 //----------------------------------------------------------------
 
 DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, int cap_flag, wxString format)
-      :DashboardInstrument(pparent, id, title, cap_flag)
-{
-      m_format = format;
-      m_data = _T("---");
-      m_DataHeight = 0;
-}
-
-DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, wxString format)
       :DashboardInstrument(pparent, id, title, 0)
 {
       m_format = format;
       m_data = _T("---");
       m_DataHeight = 0;
+      this->AddCaptureCode(cap_flag);
 }
+
 
 wxSize DashboardInstrument_Single::GetSize( int orient, wxSize hint )
 {
