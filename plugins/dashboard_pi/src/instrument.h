@@ -42,7 +42,7 @@
 #include "../../../include/ocpn_plugin.h"
 #include <wx/dcbuffer.h>
 #include <wx/dcgraph.h>         // supplemental, for Mac
-#include <vector>
+#include <wx/vector.h>
 
 const wxString DEGREE_SIGN = wxString::Format(_T("%c"), 0x00B0); // This is the degree sign in UTF8. It should be correctly handled on both Win & Unix
 #define DefaultWidth 150
@@ -117,7 +117,7 @@ protected:
       int               m_cap_flag;
       int               m_TitleHeight;
       wxString          m_title;
-      std::vector<int>  m_cap_codes;
+      wxVector<int>  m_cap_codes;
 
       virtual void Draw(wxGCDC* dc) = 0;
 private:

@@ -93,7 +93,7 @@ void DashboardInstrument::AddCaptureCode(int st)
 bool DashboardInstrument::HasCaptureCode(int st){
   bool match = false;
   if(m_cap_flag == 0){ // this check is only here for development while this is existing alongside the old system as well
-    for (std::vector<int>::iterator it = m_cap_codes.begin(); it != m_cap_codes.end(); ++it){
+    for (wxVector<int>::iterator it = m_cap_codes.begin(); it != m_cap_codes.end(); ++it){
         if(*it == st ){
           match = true;
           break;
