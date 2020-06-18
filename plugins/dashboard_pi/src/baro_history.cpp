@@ -47,7 +47,7 @@
 //************************************************************************************************************************
 
 DashboardInstrument_BaroHistory::DashboardInstrument_BaroHistory( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title, OCPN_DBP_STC_MDA)
+      DashboardInstrument(parent, id, title, 0)
 {     SetDrawSoloInPane(true);
 
 
@@ -74,6 +74,7 @@ DashboardInstrument_BaroHistory::DashboardInstrument_BaroHistory( wxWindow *pare
       m_WindowRect=GetClientRect();
       m_DrawAreaRect=GetClientRect();
       m_DrawAreaRect.SetHeight(m_WindowRect.height-m_TopLineHeight-m_TitleHeight);
+      this->AddCaptureCode(OCPN_DBP_STC_MDA);
 }
 
 wxSize DashboardInstrument_BaroHistory::GetSize( int orient, wxSize hint )
