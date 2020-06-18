@@ -45,13 +45,14 @@
 #include "dial.h"
 
 DashboardInstrument_GPS::DashboardInstrument_GPS( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title, OCPN_DBP_STC_GPS)
+      DashboardInstrument(parent, id, title, 0)
 {
       m_cx = 35;
       m_cy = 57;
       m_radius = 35;
 
       m_SatCount = 0;
+      this->AddCaptureCode(OCPN_DBP_STC_GPS);
       for (int idx = 0; idx < 12; idx++)
       {
             m_SatInfo[idx].SatNumber = 0;
@@ -262,4 +263,3 @@ void DashboardInstrument_GPS::DrawForeground( wxGCDC* dc )
     }
 
 }
-

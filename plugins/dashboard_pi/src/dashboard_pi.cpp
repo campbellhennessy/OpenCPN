@@ -3801,7 +3801,7 @@ void DashboardWindow::SendSentenceToAllInstruments( int st, double value, wxStri
 void DashboardWindow::SendSatInfoToAllInstruments( int cnt, int seq, SAT_INFO sats[4] )
 {
     for( size_t i = 0; i < m_ArrayOfInstrument.GetCount(); i++ ) {
-        if( ( m_ArrayOfInstrument.Item( i )->m_cap_flag & OCPN_DBP_STC_GPS )
+        if( ( m_ArrayOfInstrument.Item( i )->m_cap_flag & OCPN_DBP_STC_GPS || m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(OCPN_DBP_STC_GPS))
                 && m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf(
                         CLASSINFO(DashboardInstrument_GPS)))
                         ((DashboardInstrument_GPS*)m_ArrayOfInstrument.Item(i)->m_pInstrument)->SetSatInfo(cnt, seq, sats);
