@@ -119,8 +119,6 @@ void DashboardInstrument_Dial::SetOptionExtraValue(int cap, wxString format, Dia
   m_ExtraValueFormat = format;
   m_ExtraValueOption = option;
   this->AddCaptureCode(cap);
-  printf("Added %d\n", cap);
-  printf("Check recieves %d\n", this->HasCaptureCode(cap));
 }
 
 void DashboardInstrument_Dial::Draw(wxGCDC* bdc)
