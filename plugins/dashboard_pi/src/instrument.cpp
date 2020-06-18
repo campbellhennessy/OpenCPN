@@ -302,13 +302,15 @@ void DashboardInstrument_Single::SetData(int st, double data, wxString unit)
 //----------------------------------------------------------------
 
 DashboardInstrument_Position::DashboardInstrument_Position(wxWindow *pparent, wxWindowID id, wxString title, int cap_flag1, int cap_flag2)
-      :DashboardInstrument(pparent, id, title, cap_flag1 | cap_flag2)
+      :DashboardInstrument(pparent, id, title, 0)
 {
 
       m_data1 = _T("---");
       m_data2 = _T("---");
       m_cap_flag1 = cap_flag1;
       m_cap_flag2 = cap_flag2;
+      this->AddCaptureCode(cap_flag1);
+      this->AddCaptureCode(cap_flag2);
       m_DataHeight = 0;
 }
 
