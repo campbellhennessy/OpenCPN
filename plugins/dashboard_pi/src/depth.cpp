@@ -44,12 +44,14 @@ extern int g_iDashDepthUnit;
 #endif
 
 DashboardInstrument_Depth::DashboardInstrument_Depth( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title, OCPN_DBP_STC_DPT | OCPN_DBP_STC_TMP)
+      DashboardInstrument(parent, id, title,  0)
 {
       m_MaxDepth = 0;
       m_Depth = 0;
       m_DepthUnit = getUsrDistanceUnit_Plugin( g_iDashDepthUnit );
       m_Temp = _T("--");
+      this->AddCaptureCode(OCPN_DBP_STC_DPT);
+      this->AddCaptureCode(OCPN_DBP_STC_TMP);
       for (int idx = 0; idx < DEPTH_RECORD_COUNT; idx++)
       {
             m_ArrayDepth[idx] = 0;
@@ -192,4 +194,3 @@ void DashboardInstrument_Depth::DrawForeground(wxGCDC* dc)
       dc->GetTextExtent(m_Temp, &width, &height, 0, 0, g_pFontLabel);
       dc->DrawText(m_Temp, 0, size.y-height);
 }
-
