@@ -47,7 +47,7 @@
 //************************************************************************************************************************
 
 DashboardInstrument_WindDirHistory::DashboardInstrument_WindDirHistory( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title, OCPN_DBP_STC_TWD | OCPN_DBP_STC_TWS)
+      DashboardInstrument(parent, id, title, 0)
 {     SetDrawSoloInPane(true);
       m_MaxWindDir = -1;
       m_WindDir = -1;
@@ -77,6 +77,8 @@ DashboardInstrument_WindDirHistory::DashboardInstrument_WindDirHistory( wxWindow
       m_WindowRect=GetClientRect();
       m_DrawAreaRect=GetClientRect();
       m_DrawAreaRect.SetHeight(m_WindowRect.height-m_TopLineHeight-m_TitleHeight);
+      this->AddCaptureCode(OCPN_DBP_STC_TWD);
+      this->AddCaptureCode(OCPN_DBP_STC_TWS);
 }
 
 wxSize DashboardInstrument_WindDirHistory::GetSize( int orient, wxSize hint )
