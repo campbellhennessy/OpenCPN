@@ -40,9 +40,11 @@
     #include <wx/wx.h>
 #endif
 
-DashboardInstrument_Clock::DashboardInstrument_Clock( wxWindow *parent, wxWindowID id, wxString title, int cap_flag, wxString format ) :
-      DashboardInstrument_Single( parent, id, title, cap_flag, format )
+// Some clock panels use multiple capture flags, therefore the clock instrument is responsible for adding its own codes.
+DashboardInstrument_Clock::DashboardInstrument_Clock( wxWindow *parent, wxWindowID id, wxString title, wxString format ) :
+      DashboardInstrument_Single( parent, id, title, format )
 {
+    this->AddCaptureCode(OCPN_DBP_STC_CLK);
     // if format contains the string "LCL" then display time in local TZ
     if ( format.Contains( _T( "LCL" ) ) )
         setUTC( false );
@@ -99,8 +101,11 @@ wxString DashboardInstrument_Clock::GetDisplayTime( wxDateTime UTCtime )
 }
 
 DashboardInstrument_CPUClock::DashboardInstrument_CPUClock( wxWindow *parent, wxWindowID id, wxString title, wxString format ) :
-    DashboardInstrument_Clock( parent, id, title, OCPN_DBP_STC_LAT | OCPN_DBP_STC_LON | OCPN_DBP_STC_CLK, format )
-{ }
+    DashboardInstrument_Clock( parent, id, title, format )
+{ 
+  this->AddCaptureCode(OCPN_DBP_STC_LAT);
+  this->AddCaptureCode(OCPN_DBP_STC_LON);
+}
 
 void DashboardInstrument_CPUClock::SetData( int, double, wxString )
 {
@@ -114,11 +119,12 @@ void DashboardInstrument_CPUClock::SetUtcTime( wxDateTime data )
 }
 
 DashboardInstrument_Moon::DashboardInstrument_Moon( wxWindow *parent, wxWindowID id, wxString title ) :
-      DashboardInstrument_Clock( parent, id, title, OCPN_DBP_STC_CLK|OCPN_DBP_STC_LAT, _T("%i/4 %c") )
+      DashboardInstrument_Clock( parent, id, title, _T("%i/4 %c") )
 {
     m_phase = -1;
     m_radius = 14;
     m_hemisphere = _T("");
+    this->AddCaptureCode(OCPN_DBP_STC_LAT);
 }
 
 wxSize DashboardInstrument_Moon::GetSize( int orient, wxSize hint )
@@ -277,12 +283,14 @@ wxDateTime convHrmn(double dhr) {
 };
 
 DashboardInstrument_Sun::DashboardInstrument_Sun( wxWindow *parent, wxWindowID id, wxString title, wxString format ) :
-    DashboardInstrument_Clock( parent, id, title, OCPN_DBP_STC_LAT|OCPN_DBP_STC_LON|OCPN_DBP_STC_CLK, format )
+    DashboardInstrument_Clock( parent, id, title, format )
 {
     m_lat = m_lon = 999.9;
     m_dt = wxDateTime::Now().ToUTC();
     m_sunrise = _T("---");
     m_sunset = _T("---");
+    this->AddCaptureCode(OCPN_DBP_STC_LAT);
+    this->AddCaptureCode(OCPN_DBP_STC_LON);
 }
 
 wxSize DashboardInstrument_Sun::GetSize( int orient, wxSize hint )
@@ -522,4 +530,3 @@ Optional:
 	localT = UT + localOffset
 */
 }
-

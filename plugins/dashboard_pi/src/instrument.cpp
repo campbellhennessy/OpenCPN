@@ -200,6 +200,7 @@ void DashboardInstrument::OnPaint( wxPaintEvent& WXUNUSED(event) )
 //
 //----------------------------------------------------------------
 
+// Constructor where one single sentence needs to be captured, code can be passed in as cap_flag
 DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, int cap_flag, wxString format)
       :DashboardInstrument(pparent, id, title, 0)
 {
@@ -207,6 +208,15 @@ DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWind
       m_data = _T("---");
       m_DataHeight = 0;
       this->AddCaptureCode(cap_flag);
+}
+
+// Constructor where multiple needs to be captured, child is responsible for adding the appropriate capture codes
+DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, wxString format)
+      :DashboardInstrument(pparent, id, title, 0)
+{
+      m_format = format;
+      m_data = _T("---");
+      m_DataHeight = 0;
 }
 
 

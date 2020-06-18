@@ -47,7 +47,7 @@ extern int g_iUTCOffset;    // get offset from dashboard_pi.cpp
 class DashboardInstrument_Clock: public DashboardInstrument_Single
 {
 public:
-    DashboardInstrument_Clock( wxWindow *parent, wxWindowID id, wxString title, int cap_flag=OCPN_DBP_STC_CLK, wxString format=_T("%02i:%02i:%02i UTC") );
+    DashboardInstrument_Clock( wxWindow *parent, wxWindowID id, wxString title, wxString format=_T("%02i:%02i:%02i UTC") );
 
     ~DashboardInstrument_Clock(void){}
 
@@ -114,4 +114,3 @@ public:
     void SetUtcTime( wxDateTime value );
 };
 #endif // __CLOCK_H__
-

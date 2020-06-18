@@ -3755,7 +3755,7 @@ void DashboardWindow::SetInstrumentList( wxArrayInt list )
                 break;
             case ID_DBP_I_GPSLCL:
                 instrument = new DashboardInstrument_Clock( this, wxID_ANY,
-                    getInstrumentCaption( id ), OCPN_DBP_STC_CLK, _T( "%02i:%02i:%02i LCL" ) );
+                    getInstrumentCaption( id ), _T( "%02i:%02i:%02i LCL" ) );
                 break;
             case ID_DBP_I_CPULCL:
                 instrument = new DashboardInstrument_CPUClock( this, wxID_ANY,
@@ -3811,7 +3811,7 @@ void DashboardWindow::SendSatInfoToAllInstruments( int cnt, int seq, SAT_INFO sa
 void DashboardWindow::SendUtcTimeToAllInstruments( wxDateTime value )
 {
     for( size_t i = 0; i < m_ArrayOfInstrument.GetCount(); i++ ) {
-        if( ( m_ArrayOfInstrument.Item( i )->m_cap_flag & OCPN_DBP_STC_CLK )
+        if( ( m_ArrayOfInstrument.Item( i )->m_cap_flag & OCPN_DBP_STC_CLK || m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(OCPN_DBP_STC_CLK))
                 && m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf( CLASSINFO( DashboardInstrument_Clock ) ) )
 //                  || m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf( CLASSINFO( DashboardInstrument_Sun ) )
 //                  || m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf( CLASSINFO( DashboardInstrument_Moon ) ) ) )
