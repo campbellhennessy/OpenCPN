@@ -35,7 +35,7 @@ extern int g_iDashDistanceUnit;
 //
 //----------------------------------------------------------------
 DashboardInstrument_FromOwnship::DashboardInstrument_FromOwnship(wxWindow *pparent, wxWindowID id, wxString title, int cap_flag1, int cap_flag2 ,int cap_flag3,int cap_flag4)
-    :DashboardInstrument(pparent, id, title, 0)
+    :DashboardInstrument(pparent, id, title)
 {
     m_data1 =_T("---");
     m_data2 =_T("---");

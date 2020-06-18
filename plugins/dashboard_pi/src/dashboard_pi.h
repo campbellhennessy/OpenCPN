@@ -107,13 +107,12 @@ class DashboardWindowContainer
 class DashboardInstrumentContainer
 {
       public:
-            DashboardInstrumentContainer(int id, DashboardInstrument *instrument, int capa){
-                  m_ID = id; m_pInstrument = instrument; m_cap_flag = capa; }
+            DashboardInstrumentContainer(int id, DashboardInstrument *instrument){
+                  m_ID = id; m_pInstrument = instrument; }
             ~DashboardInstrumentContainer(){ delete m_pInstrument; }
 
             DashboardInstrument    *m_pInstrument;
             int                     m_ID;
-            int                     m_cap_flag;
 };
 
 //    Dynamic arrays of pointers need explicit macros in wx261
@@ -428,4 +427,3 @@ private:
 };
 
 #endif
-

@@ -47,7 +47,7 @@
 //************************************************************************************************************************
 
 DashboardInstrument_BaroHistory::DashboardInstrument_BaroHistory( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title, 0)
+      DashboardInstrument(parent, id, title)
 {     SetDrawSoloInPane(true);
 
 

@@ -3612,11 +3612,9 @@ void DashboardWindow::SetInstrumentList( wxArrayInt list )
                 break;
 			case ID_DBP_D_AWA_TWA: //App/True Wind angle +-180° on boat axis
 				instrument = new DashboardInstrument_AppTrueWindAngle(this, wxID_ANY,
-					getInstrumentCaption(id), OCPN_DBP_STC_AWA | OCPN_DBP_STC_TWA);
+					getInstrumentCaption(id));
 				((DashboardInstrument_Dial *)instrument)->SetOptionMainValue(_T("%.0f"),
 					DIAL_POSITION_NONE);
-				((DashboardInstrument_Dial *)instrument)->SetOptionExtraValue(
-					OCPN_DBP_STC_TWS | OCPN_DBP_STC_AWS, _T("%.1f"), DIAL_POSITION_NONE);
 				break;
             case ID_DBP_D_TWD: //True Wind direction
                 instrument = new DashboardInstrument_WindCompass( this, wxID_ANY,
@@ -3764,8 +3762,7 @@ void DashboardWindow::SetInstrumentList( wxArrayInt list )
         if( instrument ) {
             instrument->instrumentTypeId = id;
             m_ArrayOfInstrument.Add(
-                    new DashboardInstrumentContainer( id, instrument,
-                            instrument->GetCapacity() ) );
+                    new DashboardInstrumentContainer( id, instrument) );
             itemBoxSizer->Add( instrument, 0, wxEXPAND, 0 );
             if( itemBoxSizer->GetOrientation() == wxHORIZONTAL ) {
                 itemBoxSizer->AddSpacer( 5 );
@@ -3793,7 +3790,7 @@ void DashboardWindow::SetInstrumentList( wxArrayInt list )
 void DashboardWindow::SendSentenceToAllInstruments( int st, double value, wxString unit )
 {
     for( size_t i = 0; i < m_ArrayOfInstrument.GetCount(); i++ ) {
-        if( m_ArrayOfInstrument.Item( i )->m_cap_flag & st || m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(st)) m_ArrayOfInstrument.Item( i )->m_pInstrument->SetData(
+        if( m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(st)) m_ArrayOfInstrument.Item( i )->m_pInstrument->SetData(
                 st, value, unit );
     }
 }
@@ -3801,7 +3798,7 @@ void DashboardWindow::SendSentenceToAllInstruments( int st, double value, wxStri
 void DashboardWindow::SendSatInfoToAllInstruments( int cnt, int seq, SAT_INFO sats[4] )
 {
     for( size_t i = 0; i < m_ArrayOfInstrument.GetCount(); i++ ) {
-        if( ( m_ArrayOfInstrument.Item( i )->m_cap_flag & OCPN_DBP_STC_GPS || m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(OCPN_DBP_STC_GPS))
+        if( (  m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(OCPN_DBP_STC_GPS))
                 && m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf(
                         CLASSINFO(DashboardInstrument_GPS)))
                         ((DashboardInstrument_GPS*)m_ArrayOfInstrument.Item(i)->m_pInstrument)->SetSatInfo(cnt, seq, sats);
@@ -3811,7 +3808,7 @@ void DashboardWindow::SendSatInfoToAllInstruments( int cnt, int seq, SAT_INFO sa
 void DashboardWindow::SendUtcTimeToAllInstruments( wxDateTime value )
 {
     for( size_t i = 0; i < m_ArrayOfInstrument.GetCount(); i++ ) {
-        if( ( m_ArrayOfInstrument.Item( i )->m_cap_flag & OCPN_DBP_STC_CLK || m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(OCPN_DBP_STC_CLK))
+        if( (  m_ArrayOfInstrument.Item(i)->m_pInstrument->HasCaptureCode(OCPN_DBP_STC_CLK))
                 && m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf( CLASSINFO( DashboardInstrument_Clock ) ) )
 //                  || m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf( CLASSINFO( DashboardInstrument_Sun ) )
 //                  || m_ArrayOfInstrument.Item( i )->m_pInstrument->IsKindOf( CLASSINFO( DashboardInstrument_Moon ) ) ) )

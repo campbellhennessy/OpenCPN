@@ -93,13 +93,21 @@ void DashboardInstrument_TrueWindAngle::DrawBackground(wxGCDC* dc)
   Apparent & True wind angle combined in one dial instrument
   Author: Thomas Rauch
 ******************************************************************************/
-DashboardInstrument_AppTrueWindAngle::DashboardInstrument_AppTrueWindAngle(wxWindow *parent, wxWindowID id, wxString title, int cap_flag) :
-DashboardInstrument_Dial(parent, id, title, cap_flag, 0, 360, 0, 360)
+// This instrument does not exactly follow the dial pattern (it captures more than 2 sentences), it therefore sends the base class Null captures and modifies the base members directly as required
+DashboardInstrument_AppTrueWindAngle::DashboardInstrument_AppTrueWindAngle(wxWindow *parent, wxWindowID id, wxString title) :
+DashboardInstrument_Dial(parent, id, title, OCPN_DBP_STC_NULL, 0, 360, 0, 360)
 {
 	SetOptionMarker(10, DIAL_MARKER_REDGREENBAR, 3);
 	// Labels are set static because we've no logic to display them this way
 	wxString labels[] = { _T(""), _T("30"), _T("60"), _T("90"), _T("120"), _T("150"), _T(""), _T("150"), _T("120"), _T("90"), _T("60"), _T("30") };
 	SetOptionLabel(30, DIAL_LABEL_HORIZONTAL, wxArrayString(12, labels));
+
+  this->AddCaptureCode(OCPN_DBP_STC_AWA);
+  this->AddCaptureCode(OCPN_DBP_STC_TWA);
+  this->AddCaptureCode(OCPN_DBP_STC_TWS);
+  this->AddCaptureCode(OCPN_DBP_STC_AWS);
+  this->SetOptionExtraValue(
+    OCPN_DBP_STC_NULL, _T("%.1f"), DIAL_POSITION_NONE);
 }
 
 void DashboardInstrument_AppTrueWindAngle::DrawBackground(wxGCDC* dc)

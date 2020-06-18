@@ -44,7 +44,7 @@ extern int g_iDashDepthUnit;
 #endif
 
 DashboardInstrument_Depth::DashboardInstrument_Depth( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title,  0)
+      DashboardInstrument(parent, id, title)
 {
       m_MaxDepth = 0;
       m_Depth = 0;

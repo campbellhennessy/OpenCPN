@@ -98,7 +98,7 @@ Author: Thomas Rauch
 class DashboardInstrument_AppTrueWindAngle : public DashboardInstrument_Dial
 {
 public:
-	DashboardInstrument_AppTrueWindAngle(wxWindow *parent, wxWindowID id, wxString title, int cap_flag);
+	DashboardInstrument_AppTrueWindAngle(wxWindow *parent, wxWindowID id, wxString title);
 
 	~DashboardInstrument_AppTrueWindAngle(void){}
 	void SetData(int, double, wxString);
@@ -121,4 +121,3 @@ protected:
 };
 
 #endif // __Wind_H__
-

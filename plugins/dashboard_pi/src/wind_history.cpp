@@ -47,7 +47,7 @@
 //************************************************************************************************************************
 
 DashboardInstrument_WindDirHistory::DashboardInstrument_WindDirHistory( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title, 0)
+      DashboardInstrument(parent, id, title)
 {     SetDrawSoloInPane(true);
       m_MaxWindDir = -1;
       m_WindDir = -1;

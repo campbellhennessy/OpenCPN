@@ -45,7 +45,7 @@
 #include "dial.h"
 
 DashboardInstrument_GPS::DashboardInstrument_GPS( wxWindow *parent, wxWindowID id, wxString title) :
-      DashboardInstrument(parent, id, title, 0)
+      DashboardInstrument(parent, id, title)
 {
       m_cx = 35;
       m_cy = 57;

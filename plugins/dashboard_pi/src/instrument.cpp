@@ -45,11 +45,10 @@
 //
 //----------------------------------------------------------------
 
-DashboardInstrument::DashboardInstrument(wxWindow *pparent, wxWindowID id, wxString title, int cap_flag)
+DashboardInstrument::DashboardInstrument(wxWindow *pparent, wxWindowID id, wxString title)
       :wxControl(pparent, id, wxDefaultPosition, wxDefaultSize, wxBORDER_NONE)
 {
       m_title = title;
-      m_cap_flag = cap_flag;
 
       SetBackgroundStyle( wxBG_STYLE_CUSTOM );
       SetDrawSoloInPane(false);
@@ -92,21 +91,16 @@ void DashboardInstrument::AddCaptureCode(int st)
 
 bool DashboardInstrument::HasCaptureCode(int st){
   bool match = false;
-  if(m_cap_flag == 0){ // this check is only here for development while this is existing alongside the old system as well
-    for (wxVector<int>::iterator it = m_cap_codes.begin(); it != m_cap_codes.end(); ++it){
-        if(*it == st ){
-          match = true;
-          break;
-        }
-    }
+  for (wxVector<int>::iterator it = m_cap_codes.begin(); it != m_cap_codes.end(); ++it){
+      if(*it == st ){
+        match = true;
+        break;
+      }
   }
   return match;
 }
 
-int DashboardInstrument::GetCapacity()
-{
-      return m_cap_flag;
-}
+
 void DashboardInstrument::SetDrawSoloInPane(bool value)
 {
     m_drawSoloInPane = value;
@@ -202,21 +196,23 @@ void DashboardInstrument::OnPaint( wxPaintEvent& WXUNUSED(event) )
 
 // Constructor where one single sentence needs to be captured, code can be passed in as cap_flag
 DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, int cap_flag, wxString format)
-      :DashboardInstrument(pparent, id, title, 0)
+      :DashboardInstrument(pparent, id, title)
 {
       m_format = format;
       m_data = _T("---");
       m_DataHeight = 0;
+      m_cap_flag = cap_flag;
       this->AddCaptureCode(cap_flag);
 }
 
-// Constructor where multiple needs to be captured, child is responsible for adding the appropriate capture codes
+// Constructor where multiple needs to be captured, child is responsible for adding the appropriate capture codes... this also means that any instruments derived from this will need to override setData (currently only clocks use this constructor)
 DashboardInstrument_Single::DashboardInstrument_Single(wxWindow *pparent, wxWindowID id, wxString title, wxString format)
-      :DashboardInstrument(pparent, id, title, 0)
+      :DashboardInstrument(pparent, id, title)
 {
       m_format = format;
       m_data = _T("---");
       m_DataHeight = 0;
+      m_cap_flag = OCPN_DBP_STC_NULL;
 }
 
 
@@ -312,7 +308,7 @@ void DashboardInstrument_Single::SetData(int st, double data, wxString unit)
 //----------------------------------------------------------------
 
 DashboardInstrument_Position::DashboardInstrument_Position(wxWindow *pparent, wxWindowID id, wxString title, int cap_flag1, int cap_flag2)
-      :DashboardInstrument(pparent, id, title, 0)
+      :DashboardInstrument(pparent, id, title)
 {
 
       m_data1 = _T("---");
